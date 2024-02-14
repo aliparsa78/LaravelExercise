@@ -16,8 +16,11 @@ class UserCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->user_type==='1'){
+        if(Auth::user()->user_type==1){
             return $next($request);
+        }else if(Auth::user()->user_type==0){
+            return $next($request);
+
         }
         else{
             session()->flush();

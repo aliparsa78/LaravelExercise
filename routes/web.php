@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,10 @@ Route::get('/',function(){
 });
 Route::group(['middleware'=>['auth','userCheck']],function(){
     
-    Route::get('/dashboard',function(){
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('category',[DashboardController::class,'category'])->name('category');
     
-    Route::get('/greeting', function () {
-        return 'Hello World';
-    });
+    Route::get('/home',function(){
+        return view('Home');
+    })->name('home');
 });
