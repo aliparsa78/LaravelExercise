@@ -78,6 +78,7 @@
                         <td>{{$category->created_at->diffForHumans() }}</td>
                         <td>{{$category->updated_at->diffForHumans()}}</td>
                         <td>
+                            <a href="{{url('category/restore/'.$category->id)}}" class="btn btn-success">Restore</a>
                             <a href="{{url('category/softDelete/'.$category->id)}}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     public function category(){
         $categories = Category::latest()->Paginate(3);
-        $trashCategory = Category::onlyTrashed()->latest()->paginate(3);
+        $trashCategory = Category::onlyTrashed()->latest()->paginate(10);
         return view('Category/Category',compact('categories','trashCategory'));
     }
 
@@ -52,5 +52,10 @@ class DashboardController extends Controller
         $category = Category::find($id)->delete();
         return back()->with('success','Category deleted successfuly');
 
+    }
+    public function RestoreCategory($id)
+    {
+        $category = Category::withTrashed()->find($id)->restore();
+        return back()->with('success','Category Restored successfuly ');
     }
 }
