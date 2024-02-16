@@ -18,6 +18,8 @@
                         <th>User_Name</th>
                         <th>Category_Name</th>
                         <th>Created at</th>
+                        <th>Updated at</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,9 +27,14 @@
                     @foreach($categories as $category)
                     <tr>
                         <td>{{$categories->firstItem()+$loop->index}}</td>
-                        <td>{{$category->user_id}}</td>
+                        <td>{{$category->user->name}}</td>
                         <td>{{$category->category_name}}</td>
                         <td>{{$category->created_at->diffForHumans() }}</td>
+                        <td>{{$category->updated_at->diffForHumans()}}</td>
+                        <td>
+                            <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-info">Edite</a>
+                            <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-danger">Delete</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

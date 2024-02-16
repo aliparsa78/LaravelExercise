@@ -22,7 +22,8 @@ Route::group(['middleware'=>['auth','userCheck']],function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('category',[DashboardController::class,'category'])->name('category');
     Route::post('/addCategory',[DashboardController::class,'addCategory'])->name('addCategory');
-    
+    Route::get('/category/edit/{id}',[DashboardController::class,'editCategory']);
+    Route::post('/category/update/{id}',[DashboardController::class,'categoryUpdate']);
     Route::get('/home',function(){
         return view('Home');
     })->name('home');

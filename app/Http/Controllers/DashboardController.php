@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
     public function category(){
         $categories = Category::latest()->Paginate(3);
-        return view('Category',compact('categories'));
+        return view('Category/Category',compact('categories'));
     }
 
     public function addCategory(Request $request){
@@ -33,5 +33,15 @@ class DashboardController extends Controller
         $category->category_name = $request->input('category_name');
         $category->save();
         return redirect()->back()->with('success','Category added successfuly !');
+    }
+    public function editCategory($id){
+        $category = Category::find($id);
+        return view('Category/edit',compact('category'));
+    }
+    public function categoryUpdate(Request $request,$id){
+        $categories = Category::find($id);
+        $categories->category_name = $request->category_name;
+        $categories->update();
+        return redirect()->route('category')->with('success','Category updated successfuly ');
     }
 }
