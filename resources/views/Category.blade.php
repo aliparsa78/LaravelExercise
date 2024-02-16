@@ -2,6 +2,14 @@
     <div class="container">
        <div class="row">
         <div class="col-md-8">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <strong>{{session('success')}}</strong>
+                <button type="button" class="close  " data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <h1 class="text-center bg-white p-2 mt-4 mb-0">Category Table</h1>
             <table class="table bg-white ">
                 <thead>
@@ -16,17 +24,19 @@
                     <?php  $id=1  ?>
                     @foreach($categories as $category)
                     <tr>
-                        <td>{{$id++}}</td>
+                        <td>{{$categories->firstItem()+$loop->index}}</td>
                         <td>{{$category->user_id}}</td>
                         <td>{{$category->category_name}}</td>
-                        <td>{{Carbon\Carbon::parse($category->created_at)->diffForHumans() }}</td>
+                        <td>{{$category->created_at->diffForHumans() }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            {{ $categories->links() }}
         </div>
         <div class="col-md-4">
-            <form action="" class="mt-5">
+            <form action="{{route('addCategory')}}" method="POST" class="mt-5">
+                @csrf
                 <input type="text" name="category_name" placeholder="Enter category name">
                 <input type="submit" class="btn btn-info bg-info" value="Add Category">
             </form>
