@@ -58,4 +58,9 @@ class DashboardController extends Controller
         $category = Category::withTrashed()->find($id)->restore();
         return back()->with('success','Category Restored successfuly ');
     }
+    public function PdeleteCategory($id)
+    {
+        $category = Category::onlyTrashed()->find($id)->forceDelete();
+        return back()->with('success','Category delete permenently');
+    }
 }
