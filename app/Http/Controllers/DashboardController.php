@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Category;
-use Paginate;
+use softdeletestrait;
 
 use Auth;
 
 class DashboardController extends Controller
 {
+
     public function index(){
         if(Auth::check()){
             if(Auth::user()->user_type==1){
@@ -24,7 +26,8 @@ class DashboardController extends Controller
 
     public function category(){
         $categories = Category::latest()->Paginate(3);
-        return view('Category/Category',compact('categories'));
+        $trashCategory = Category::onlyTrashed()->latest()->paginate(3);
+        return view('Category/Category',compact('categories','trashCategory'));
     }
 
     public function addCategory(Request $request){
@@ -43,5 +46,11 @@ class DashboardController extends Controller
         $categories->category_name = $request->category_name;
         $categories->update();
         return redirect()->route('category')->with('success','Category updated successfuly ');
+    }
+    public function sofrDelete($id)
+    {
+        $category = Category::find($id)->delete();
+        return back()->with('success','Category deleted successfuly');
+
     }
 }

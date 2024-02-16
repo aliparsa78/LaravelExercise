@@ -24,6 +24,7 @@ Route::group(['middleware'=>['auth','userCheck']],function(){
     Route::post('/addCategory',[DashboardController::class,'addCategory'])->name('addCategory');
     Route::get('/category/edit/{id}',[DashboardController::class,'editCategory']);
     Route::post('/category/update/{id}',[DashboardController::class,'categoryUpdate']);
+    Route::get('/category/softDelete/{id}',[DashboardController::class,'sofrDelete']);
     Route::get('/home',function(){
         return view('Home');
     })->name('home');
