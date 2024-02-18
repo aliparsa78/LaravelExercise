@@ -56,7 +56,7 @@
     <div class="container">
        <div class="row">
         <div class="col-md-8">
-            <h1 class="text-center bg-white p-2 mt-4 mb-0">Category Trashed Table</h1>
+            <h1 class="text-center bg-white p-2 mt-4 mb-0">Category Trashed Items</h1>
             <table class="table bg-white ">
                 <thead>
                     <tr>
