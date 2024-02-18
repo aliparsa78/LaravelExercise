@@ -38,4 +38,30 @@ class BrandController extends Controller
         $brand->save();
         return redirect()->back();
     }
+
+    public function edite($id)
+    {
+        $brand = Brand::find($id);
+        return view('Brand.edite',compact('brand'));
+    }
+    public function updateBrand(Request $request, $id)
+    {
+        $brand = Brand::find($id);
+        $old_image = $brand->brand_image;
+        $image_path = public_path('Images/Brand/'.$old_image);
+        $brand->brand_name = $request->brand_name;
+        if($request->hasFile('brand_image')){
+            if(file_exists($image_path)){
+                
+                unlink($image_path);
+            }
+            $image = $request->brand_image;
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            // $imageName = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $request->brand_image->move('Images/Brand/',$imageName);
+            $brand->brand_image = $imageName;
+        }
+        $brand->update();
+        return redirect()->route('brand')->with('success','Brand updated successfuly ');
+    }
 }

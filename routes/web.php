@@ -32,6 +32,8 @@ Route::group(['middleware'=>['auth','userCheck']],function(){
     // Brand part 
     Route::get('/brand',[BrandController::class,'index'])->name('brand');
     Route::post('/addBrand',[BrandController::class,'addBrand']);
+    Route::get('/brand/edit/{id}',[BrandController::class,'edite']);
+    Route::post('/updateBrand/{id}',[BrandController::class,'updateBrand']);
 
 
 
