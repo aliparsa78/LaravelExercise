@@ -64,4 +64,14 @@ class BrandController extends Controller
         $brand->update();
         return redirect()->route('brand')->with('success','Brand updated successfuly ');
     }
+    public function DeleteBrand($id){
+        $brand = Brand::find($id);
+        $old_image = $brand->brand_image;
+        $image_path = public_path('Images/Brand/'.$old_image);
+        if(file_exists($image_path)){
+            unlink($image_path);
+        }
+        Brand::find($id)->delete();
+        return back()->with('success','Brand Deleted Successfuly !');
+    }
 }
