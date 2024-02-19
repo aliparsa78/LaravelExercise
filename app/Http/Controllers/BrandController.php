@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use Intervention\Image\Facades\Image;
 
 class BrandController extends Controller
 {
@@ -31,8 +32,12 @@ class BrandController extends Controller
         if($request->hasFile('brand_image')){
             $image = $request->brand_image;
             $imageName = time().'.'.$image->getClientOriginalExtension();
+            $path = public_path('Images/Brand/');
+            Image::make($image)
+            ->resize(300, 300)
+            ->save($path. $imageName);
             // $imageName = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-            $request->brand_image->move('Images/Brand/',$imageName);
+            // $request->brand_image->move('Images/Brand/',$imageName);
             $brand->brand_image = $imageName;
         }
         $brand->save();
